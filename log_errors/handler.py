@@ -24,7 +24,7 @@ class DatabaseLogHandler(logging.Handler):
         pathname = record.pathname
         function = ""
 
-        if len(record.exc_info) >= 2:
+        if hasattr(record, "exc_info") and len(record.exc_info) >= 2:
             trace = db_default_formatter.formatException(record.exc_info)
             trace_parse = traceback.format_tb(record.exc_info[2]).pop()
             result = re.findall(r".*, line (\d+), in .*", trace_parse)
