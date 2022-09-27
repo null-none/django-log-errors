@@ -49,7 +49,7 @@ class DatabaseLogHandler(logging.Handler):
                     "exception_value": str(record.exc_info[1]),
                     "stack_trace": trace,
                 }
-                if record.request.user.is_authenticated:
+                if hasattr(record.request, "user") and record.request.user.is_authenticated:
                     kwargs["user"] = record.request.user
             else:
                 kwargs = {
